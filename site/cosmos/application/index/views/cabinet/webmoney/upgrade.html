@@ -1,0 +1,84 @@
+
+<?php 
+//session_start();
+// echo "<pre>"; print_r($_POST); echo "</pre>";
+		
+//if(isset($_SESSION['id']))
+//{ 
+		
+	$sql=<<<here
+						INSERT INTO  `cosmos`.`payment` (
+						`id` ,
+						`status`
+						)
+						VALUES (
+						NULL ,  '0'
+						);
+here;
+
+	$result = db1::query($sql);	
+	$new_id=mysql_insert_id();
+	
+	$sql=<<<here
+				SELECT * 
+				FROM  `users` 
+				WHERE  `id` ={$this->user->id} 
+here;
+
+	$result = db1::query($sql);	
+	$row = mysql_fetch_assoc($result);
+	
+	switch($row['pack'])
+		{
+
+			
+			case 1: 
+					$pack=<<<here
+			<option value="570.0">to Start Pack - 570$</option>
+			<option value="1280.0">to Bussines Pack - 1280$</option>
+here;
+			break;
+			
+			case 2: 
+			$pack=<<<here
+			
+			<option value="710.0">to Bussines Pack - 710$</option>
+here;
+
+			break;
+			default : break;
+			
+		}
+	
+	print<<<here
+
+		<form id=pay name=pay method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp"> 
+		<p>Upgrade бизнес-пакета.</p> 
+		<p>
+		  <!--input type="hidden" name="LMI_PAYMENT_AMOUNT" value="1.0"-->
+		  <select name="LMI_PAYMENT_AMOUNT">
+					{$pack}
+					  
+			</select></td>
+here;
+
+		echo '  <input type="hidden" name="LMI_PAYMENT_DESC_BASE64" value="'.base64_encode("Upgrade бизнес-пакета").'"/> ';
+
+		  print<<<here
+		<input type="hidden" name="LMI_PAYMENT_NO" value="{$new_id}">
+		  <input type="hidden" name="LMI_PAYEE_PURSE" value="Z297863048308">
+		  <input type="hidden" name="LMI_SIM_MODE" value="0"> 
+		  <input type="hidden" name="LMI_SUCCESS_URL" value="http://{$this->user->subdomen}.cosmos.sc/webmoney/paysuccess/">
+		  <input type="hidden" name="LMI_RESULT_URL" value="http://{$this->user->subdomen}.cosmos.sc/webmoney/paypermit/"> 
+			<input type="hidden" name="PV" value="100">
+			<input type="hidden" name="id" value="{$this->user->id}">
+			<input type="hidden" name="side" value="{$row['side']}">
+		</p> 
+		<p>
+		 <input type="submit" value="Продолжить покупку через Webmoney">
+		 </p> 
+here;
+
+		
+//else header ('Location: ../index.php');		
+		?>

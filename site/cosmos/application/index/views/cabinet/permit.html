@@ -1,0 +1,89 @@
+<?php
+
+  
+	
+	function find($invited)
+	{
+		$sql = "SELECT id,side FROM `users` WHERE (`invited` = {$invited} AND `pack` = 2) OR (`invited` = {$invited} AND `pack` = 3) ";
+		//echo $sql.'<br>';
+		$result = db1::query($sql);
+		$find=false;
+		//$count=mysql_num_rows($result);
+		//echo $count.'<br>';
+		if(mysql_num_rows($result)>1) $find = true;
+		else {
+			while(($row = db1::fetch($result))&&!$find)
+				$find = find($row->id);
+		}
+		return $find;
+	}
+	
+	
+	$sql = "SELECT id,side FROM `users` WHERE `parent` = {$this->user->id}";
+    $result = db1::query($sql);
+	$row = db1::fetch($result);
+	
+    switch(mysql_num_rows($result)) {
+        case 0:
+            $ofis = ' <option value="a0" selected="selected">A левая сторона</option>' ; 
+            break;
+        case 1:
+				if($row->side==0) $ofis = ' <option value="a1" selected="selected">A правая сторона</option>' ; 
+				else $ofis = ' <option value="a0" selected="selected">A левая сторона</option>' ;
+			break;
+        case 2:
+				if(find($row->id))   $ofis = ' <option value="a0" selected="selected">A левая сторона</option><option value="a1">A правая сторона</option><option value="r">R</option><option value="l">L</option>' ;
+				else {
+					$row = db1::fetch($result);
+					if (find($row->id)) $ofis = ' <option value="a0" selected="selected">A левая сторона</option><option value="a1">A правая сторона</option><option value="r">R</option><option value="l">L</option>' ;
+					else $ofis = ' <option value="a0" selected="selected">A левая сторона</option><option value="a1">A правая сторона</option>' ; 
+				}
+			break;
+        default:
+			
+            break;
+    }
+?>
+<h4>Подтверждение нового пользователя</h4>
+    <table class="table table-bordered">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Бэк офис</td>
+        <td></td>
+    </tr>
+<?php
+$sql = "SELECT * FROM  `waiting_for_permit` WHERE  `invite_id` = {$this->user->id} AND `permit_email` = 1 AND `document_permit` = 1";
+$result = db1::query($sql);
+while($guest = db1::fetch($result)) {
+    ?>
+    <tr data-permit-id="<?=$guest->subdomen?>">
+        <form method="POST" action="/cabinet/permitapply/" class="popup-ajax">
+            <input type="hidden" name="form[subdomen]" value="<?=$guest->subdomen?>" />
+            <td><?=htmlspecialchars($guest->name)?></td>
+            <td><?=htmlspecialchars($guest->surname)?></td>
+            <td>
+            <select name="type" ><?=$ofis?></select></td>
+            <td><input class="btn btn-success" type="submit" value="Подтвердить"/></td>
+            <?
+            $guest = (array)$guest;
+            foreach($guest as $key => $value) {
+                ?><input type='hidden' name='<?=$key?>' value='<?=$value?>' /><?
+            }
+        ?></form>
+    </tr><?
+}
+?>
+</table>
+
+<script>
+    $(function(){
+        $('#work_window .popup-ajax').customSubmit({
+            json: true,
+            success: function(data) {
+                $('[data-permit-id="'+data.guest_subdomen+'"]').hide();
+                return CustomUI.hideForm();
+            }
+        });
+    });
+</script>

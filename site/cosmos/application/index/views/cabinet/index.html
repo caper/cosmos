@@ -1,0 +1,210 @@
+
+        <script src="/metroui/MetroJs.js"></script>
+        <link rel="stylesheet" href="/metroui/MetroJs.css">
+        
+<!-- Apply blue theme as default for all tiles, but use the tiles class to allow the theme to be swapped -->
+
+            
+    <style>
+    
+        .work_loader {
+            padding: 1em;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .live-tile *, .list-tile * {
+            color: #fff;
+            font-family: "Segoe UI", Arial;
+        }
+    
+        #left_bottom .live-tile, #left_bottom .list-tile, #left_bottom .copy-tile, #left_bottom .tile-strip .flip-list > li {
+            margin-right: 0 !important;
+            margin-left: 21px !important;
+        }
+
+        #left-tiles-box .live-tile, #left-tiles-box .list-tile, #left-tiles-box .copy-tile, #left-tiles-box .tile-strip .flip-list > li {
+            margin-bottom: 21px !important;
+        }
+        
+        #left_bottom {
+            padding: 0;
+            background: transparent;
+        }
+        
+        #work_window {
+            color: #444;
+            font-size: 10pt;
+        }
+
+        .disabled {
+            opacity: .2;
+            cursor: default !important;
+        }
+        .disabled * {
+            cursor: default !important;
+        }
+
+		#first_buy { padding:5px 0;}
+    </style>
+	
+    <script>
+
+        $(function(){
+            $('.live-tile,.list-tile,[data-inworkwindow]').on('click', function(){
+                var href = $(this).attr('href');
+                return loadContent(href);
+            });
+        });
+	<?if ($this->user->active!=0) {?>
+        function loadContent(href) {
+            if(typeof href != 'undefined') {
+                $('#work_window').html('<p class="work_loader">Загрузка...<br><img src="/img/loader.gif" alt="..." />');
+                    
+					if (href=="/cabinet/lar/"||href=="/cabinet/changeProfile/")  {
+						$('#work_window').append('<iframe id="frame_load" scrolling="no" src="'+href+'" width="800px" height="492px" style="position:absolute;" align="left" frameborder="0" > </iframe>');
+						$( '#frame_load' ).load( function() {
+							$( '.work_loader' ).css({'display':'none'});
+						});
+					}
+					else $('#work_window').load(href);     
+            }
+            return false;
+        }
+		<? }?>
+
+    </script>
+	
+        <table style="margin-left: 20px; width: 1000px; margin-top: 2em; margin-bottom: 2em;">
+            <tr>
+                <td style="width: 150px;" id="left-tiles-box">
+                    <div class="tiles blue tile-group">
+                        <div id="btn1" href="/cabinet/uchet/" class="live-tile none bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Учет</span>
+                            <div><img class="full" src="/metroui/img/diploma1-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/money_bag-48.png" alt="" /></div>
+                        </div>
+                        <div id="btn2" href="/cabinet/lar/" class="live-tile green bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Моя структура</span>
+                            <div><img class="full" src="/img/tree.png" alt="" /></div>
+                            <div><img class="full" src="/img/tree.png" alt="" /></div>
+                        </div>
+                        <div id="btn3" href="/cabinet/linear/" class="live-tile red bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Линейная структура</span>
+                            <div><img class="full" src="/metroui/img/package-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/money_bag-48.png" alt="" /></div>
+                        </div>
+                        <!--
+                        <div id="btn4" class="live-tile yellow bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Конференции</span>
+                            <div><img class="full" src="/metroui/img/package-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/money_bag-48.png" alt="" /></div>
+                        </div>
+                        -->
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <!--центральное большое окно -->
+                    <div id="work_window" style="border: none; color: #444;">
+                        <div style="line-height: 1.2em;">
+                            Добро пожаловать в личный кабинет,
+                            <br>здесь Вы можете посмотреть свою структуру,
+                            <br>а также ввести и вывести деньги со счёта.
+							
+                        </div>
+						<?if ($this->user->active==0) {?>
+							<div id="first_buy">
+								<script>
+								 $('#first_buy').html('Загрузка...<br><img src="/img/loader.gif" alt="..." />');
+					
+								$("#first_buy").load("/cabinet/webmoney_pay");
+								</script>
+							</div>
+						<?}?>						
+                    </div>
+                    <!--
+                    <div id="id11"><div id="line11"></div><span>Записная книжка</span></div>
+                    <div id="right_bottom">
+                        <div id="id12"><div id="line12"></div><span>Финансы</span></div>    
+                        <div id="id13"><div id="subline13"></div><div id="line13"></div><span>Сообщения</span></div>
+                    </div>
+                    -->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="tiles blue tile-group">
+                        <!-- Mango Flip List that triggers every 3 seconds -->
+                        <a class="list-tile mango" href="/cabinet/permit/">
+                            <span class="tile-title">Мои рефералы</span>
+                            <ul class="flip-list fourTiles" data-mode="flip-list" data-delay="2000">
+                                <li>
+                                    <div><img class="full" src="/metroui/img/delivery-48.png" alt="" /></div>
+                                    <div><img class="full" src="/metroui/img/briefcase-48.png" alt="" /></div>
+                                </li>
+                                <li>
+                                    <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                                    <div><img class="full" src="/metroui/img/forward.png" alt="" /></div>
+                                </li>
+                                <li>
+                                    <div><img class="full" src="/metroui/img/package-48.png" alt="" /></div>
+                                    <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                                </li>
+                                <li data-direction="horizontal">
+                                    <div><img class="full" src="/metroui/img/briefcase-48.png" alt="" /></div>
+                                    <div><img class="full" src="/metroui/img/delivery-48.png" alt="" /></div>
+                                </li>
+                            </ul>
+                        </a>
+
+                        <a id="btn5" href="/cabinet/changeProfile/" class="live-tile green bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Редактировать профиль</span>
+                            <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                        </a>
+                        
+                        <a id="btn6" class="disabled live-tile red bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Связь</span>
+                            <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/diploma1-48.png" alt="" /></div>
+                        </a>
+
+                        <!-- Carousel Tile that slides 4 tile faces every 2.5 seconds -->
+                        <a class="disabled live-tile" data-mode="carousel" data-direction="horizontal" data-delay="2500">
+                            <div>
+                                <img class="full" src="/metroui/img/money_bag-48.png" alt="" />
+                                <span class="tile-title">Настройка системы<br>сервиса</span>
+                            </div>
+                            <div>
+                                <img class="full" src="/metroui/img/railway_station.png" alt="" />
+                                <span class="tile-title accent">Гибкие решения</span>
+                            </div>
+                            <div>
+                                <img class="full" src="/metroui/img/diploma1-48.png" alt="" />
+                                <span class="tile-title">Гибкие логистические решения</span>
+                            </div>
+                            <div>
+                                <img class="full" src="/metroui/img/businessman-48.png" alt="" />
+                                <span class="tile-title accent">Дополнительные возможности</span>
+                            </div>
+                        </a>
+                        <a id="btn7" class="disabled live-tile green bounce" data-bounce="true" data-speed="750" data-delay="3000">
+                            <span class="tile-title">Мои идеи</span>
+                            <div><img class="full" src="/metroui/img/briefcase-48.png" alt="" /></div>
+                            <div><img class="full" src="/metroui/img/businessman-48.png" alt="" /></div>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+<!--script src="/js/login.js"></script-->
+<link rel="stylesheet" type="text/css" href="/cabinet/style.css">
+
+<!-- Activate live tiles -->
+<script type="text/javascript">
+    // apply regular slide universally unless .exclude class is applied 
+    // NOTE: The default options for each liveTile are being pulled from the 'data-' attributes
+    $(".live-tile, .flip-list").not(".exclude").liveTile();
+</script>

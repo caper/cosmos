@@ -1,0 +1,29 @@
+<div style="padding: 4em; padding-bottom: 5em;">
+
+    <form method="POST" action="/cabinet/enter/" class="popup-ajax form-horizontal" id="form-enter" style="margin: auto auto; width: 300px;">
+
+        <?if(isset($_GET['reg'])){?>
+            <div class="alert alert-success" style="line-height: 1.5em; font-size: 12pt; background: #c5ecc0 url(/img/ok.png) right -12px no-repeat;">
+                Регистрация успешно завершена,
+                <br />теперь Вы можете войти в личный кабинет. 
+            </div>
+        <?}?>
+
+        <h3 style="margin-bottom: 16px;">Вход в личный кабинет</h2>
+        <input type="text" name="userName" class="form-control span4" value="" placeholder="Логин" id="input-userName" /><br>
+        <input type="password" name="password" class="form-control span4" value="" placeholder="Пароль" />
+        <br>
+        <input type="submit" class="btn btn-success" value="Войти">
+        <!--a href="/reg/forgotPassword/"  class="btn " >Забыли пароль?</a-->
+    </form>
+
+</div>
+
+<script>
+    $(function(){
+        $('#form-enter').data('success', function(data) {
+            location.href = '/cabinet/';
+        });
+        $('#input-userName').focus();
+    });
+</script>

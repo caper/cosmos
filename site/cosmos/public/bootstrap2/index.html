@@ -1,0 +1,312 @@
+<!doctype html>
+<head>
+	<title>test</title>
+    <meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="css/tablesorter.css">
+	
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<script src="js/bootstrap-dropdown.js"></script>
+	<script src="js/bootstrap-tooltip.js"></script>
+	<script src="js/bootstrap-tab.js"></script>
+	<script src="js/bootstrap-popover.js"></script>
+	<script src="js/bootstrap-alert.js"></script>
+	<script src="js/bootstrap-button.js"></script>
+	<script src="js/bootstrap-collapse.js"></script>
+	<script src="js/bootstrap-typeahead.js"></script>
+	<script src="js/jquery.tablesorter.min.js"></script>
+	
+	
+</head>
+
+<body>
+
+<style>
+.navbar-inner {
+  background-color: #2c2c2c;
+  background-image: -moz-linear-gradient(top, #0099FF, #0088ee);
+  background-image: -ms-linear-gradient(top, #0099FF, #0088ee);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0099FF), to(#0088ee));
+  background-image: -webkit-linear-gradient(top, #0099FF, #0088ee);
+  background-image: -o-linear-gradient(top, #0099FF, #0088ee);
+  background-image: linear-gradient(top, #0099FF, #0088ee);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0099FF', endColorstr='#0088ee', GradientType=0);
+}
+
+.navbar .nav > li > a {
+  color: #ffffff;
+  
+}
+</style>
+
+
+
+
+
+
+	<script type="text/javascript">
+	$(function() {
+		$('.dropdown-toggle').dropdown();
+		$("table#sortTableExample").tablesorter();
+	});
+	</script>
+
+	<div class="container-fluid">
+		
+		
+		<div class="navbar navbar-static" id="navbar-example">
+            <div class="navbar-inner">
+              <div style="width: auto;" class="container">
+                <a href="#" class="brand">Project Name</a>
+                <ul class="nav">
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown 2 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav pull-right">
+                  <li class="dropdown" id="fat-menu">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown 3 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+		
+		
+		
+		
+		<div style="padding: 8px 0;" class="well">
+			<ul class="nav nav-list">
+				<li class="nav-header">List header</li>
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#">Library</a></li>
+				<li><a href="#">Applications</a></li>
+				<li class="nav-header">Another list header</li>
+				<li><a href="#">Profile</a></li>
+				<li><a href="#">Settings</a></li>
+				<li><a href="#">Help</a></li>
+			</ul>
+		</div>
+		
+		
+		
+		
+		
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div class="row">
+			<div class="span12">
+				<table id="sortTableExample" class="table tablesorter table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+						<th>#</th>
+						<th class="yellow">First Name</th>
+						<th class="blue">Last Name</th>
+						<th class="green">Language</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>CSS</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Jacob</td>
+							<td>Thornton</td>
+							<td>Javascript</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>Stu</td>
+							<td>Dent</td>
+							<td>HTML</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>Brosef</td>
+							<td>Stalin</td>
+							<td>HTML</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		<div class="btn-group">
+          <a href="#" class="btn btn-primary"><i class="icon white user"></i> User</a>
+          <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+            <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+            <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="i"></i> Make admin</a></li>
+          </ul>
+        </div>
+		
+		<br /><br />
+		
+		
+		<div class="row">
+    <div class="span12">
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>Extending form controls</legend>
+          <div class="control-group">
+            <label class="control-label">Form sizes</label>
+            <div class="controls docs-input-sizes">
+              <input type="text" placeholder=".span1" class="span1">
+              <input type="text" placeholder=".span2" class="span2">
+              <input type="text" placeholder=".span3" class="span3">
+              <select class="span1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="span2">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="span3">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <p class="help-block">Use the same <code>.span*</code> classes from the grid system for input sizes.</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="prependedInput" class="control-label">Prepended text</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on">@</span>
+                <input type="text" size="16" id="prependedInput" class="span2">
+              </div>
+              <p class="help-block">Here's some help text</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="appendedInput" class="control-label">Appended text</label>
+            <div class="controls">
+              <div class="input-append">
+                <input type="text" size="16" id="appendedInput" class="span2">
+                <span class="add-on">.00</span>
+              </div>
+              <p class="help-block">Here's more help text</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="inlineCheckboxes" class="control-label">Inline checkboxes</label>
+            <div class="controls">
+              <label class="checkbox inline">
+                <input type="checkbox" value="option1" id="inlineCheckbox1"> 1
+              </label>
+              <label class="checkbox inline">
+                <input type="checkbox" value="option2" id="inlineCheckbox2"> 2
+              </label>
+              <label class="checkbox inline">
+                <input type="checkbox" value="option3" id="inlineCheckbox3"> 3
+              </label>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="optionsCheckboxList" class="control-label">Checkboxes</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" value="option1" name="optionsCheckboxList1">
+                Option one is this and that&mdash;be sure to include why it's great
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" value="option2" name="optionsCheckboxList2">
+                Option two can also be checked and included in form results
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" value="option3" name="optionsCheckboxList3">
+                Option three can&mdash;yes, you guessed it&mdash;also be checked and included in form results
+              </label>
+              <p class="help-block"><strong>Note:</strong> Labels surround all the options for much larger click areas and a more usable form.</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Radio buttons</label>
+            <div class="controls">
+              <label class="radio">
+                <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+                Option one is this and that&mdash;be sure to include why it's great
+              </label>
+              <label class="radio">
+                <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
+                Option two can is something else and selecting it will deselect option one
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <button class="btn" type="reset">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+		
+		
+		
+		
+		
+	</div>
+
+</body>
+</html>

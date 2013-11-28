@@ -1,0 +1,42 @@
+        <div id="content">
+
+            <!-- Top menu -->
+            <ul id="menu">
+                <li><span class="main_menu" id="first" style="border-left:1px solid gray;">Главная</span>
+                    <ul id="menu0" class="submenu"><?php Model_Menu::show_menu(0); ?>
+                    </ul>
+                </li>
+                <li><span class="main_menu" id="second">Почему мы</span>
+                    <ul id="menu1" class="submenu"><?php Model_Menu::show_menu(1); ?></ul>
+                </li>
+                <li><span class="main_menu" id="third">Финансовый доход</span>
+                    <ul id="menu2" class="submenu"><?php Model_Menu::show_menu(2); ?></ul>
+                </li>
+                <li><span class="main_menu" id="fourth">Контакты</span>
+                    <ul id="menu3" class="submenu">
+                    Центр связи
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Cube -->
+            <div class="wrap" onselectstart="return false">
+                <div id="cube">
+                    <figure class="top">1</figure>
+                    <figure class="bottom">2</figure>
+                    <figure class="left">3</figure>
+                    <figure class="right">4</figure>
+                    <figure class="front" id="current">
+                    <? if ($this->domain_user) { ?>
+                        <a href="/reg/?invite_id=<?=$this->domain_user->id;?>" >Регистрация</a>
+                    <? }?>
+                    </form>
+                    </figure>
+                    <figure class="back">6</figure>
+                </div>
+            </div>
+
+            <!-- Right menu -->
+            <div id="menu_right">текст</div>
+
+        </div>

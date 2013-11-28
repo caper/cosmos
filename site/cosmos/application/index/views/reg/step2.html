@@ -1,0 +1,86 @@
+	<script>
+$( document ).ready(function() {
+	
+
+	$( "#button_back" ).click(function() { //нажатие кнопки возвращения назад, чтобы перейти снова на второй шаг ,ему опять придется вводить уже новый код смс
+				
+					$( "#main2" ).animate({ //свдигаю вправо шаг 2
+					left: '900px',
+					opacity: '0',
+					}, 500 );
+					
+					setTimeout(function(){ //возвращаю на прежнее место шаг 1
+
+						$( "#main" ).css({'display':'block','opacity':'0'});
+						$( "#main" ).css('left','-900px');
+						$( "#main" ).animate({
+						left: '0px',
+						opacity: '1',
+						}, 500 )
+					},520);
+
+			  
+				
+			});
+			
+		$( "#step2_permit" ).click(function() { //нажатие кнопки подтверждения шага 2
+		
+			var empty=0;
+			
+			$("#info2 :input").each(function(indx){
+				if ($(this).val()=="") empty=1; 
+				
+			});	
+			if(empty==1)
+			{
+				$("#main2 .error").replaceWith("<span class='error'>Заполните все поля!</span>");
+			}
+			else
+			{
+				$("form").submit(); 
+			}		
+		});	  	
+	
+	});
+  
+	</script>
+	
+	<span class="step_number">Шаг 2</span> 
+	<a id="button_back" class="button back">Назад</a> <br>
+		<div class="step">
+			
+			
+		
+			<div id="info2">
+				<div class="info_name">
+						Номер паспорта: 	<br>		
+						Серия паспорта:  <br>
+						Выдана:  <br>
+						Скан паспорта: <br><br>
+						Скан ИНН:<br>
+						Скан кредитной карты: <br>
+						</div>
+
+						<div class="info_input">	
+							
+							<input name="number_passport" type="text"/>
+							<input name="Seria_passport" type="text"/>
+							<input name="vidana" type="text"/>
+							<input type="file" name="skan1"  accept="image/*">
+							<input type="file" name="skan2"  accept="image/*">
+							<input type="file" name="skan3"  accept="image/*">
+							<input type="file" name="skan4"  accept="image/*">
+
+						</div>
+
+						<div id="rekviziti">
+						Платежные реквизиты:
+
+
+						</div>
+			</div>
+			
+			<a  id="step2_permit"  class="button">Отправить</a>
+			<span style="clear:both;" class="error"></span>
+		
+		</div>

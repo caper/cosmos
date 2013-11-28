@@ -1,0 +1,50 @@
+<style>
+    .table-oplata ul {width:200px; color: white;}
+    .table-oplata li {list-style-type:none; border-bottom:1px solid lightgrey;}
+    .table-oplata td {color: #eee;}
+    .table-oplata tr.name {font-weight: bold;}
+    .table-oplata tr.pay { background-color: #3CB371;}
+    .table-oplata tr.nopay { background-color: #CD5C5C;}
+</style>
+
+    <!--form method="post">    
+    Введите количество людей за которых заплатила фирма: <input type="text" name="count"/>
+        <input type="submit" value="Отметить"/>
+    </form-->
+
+<div style="margin: 2em;">
+
+<form method="post" action="" method="POST">
+    <input id="pay" type="submit" value="Оплачено" class="btn btn-primary" style="margin-bottom: 1em;" />
+
+    <table cellpadding="2" border="1" rules="all" bordercolor="grey" class="table-oplata table table-bordered">
+        <tr class="name">
+            <th></td>
+            <th>Пользователь</th>
+            <th>Дата последней покупки</th>
+            <th>Дата последней оплаты фирмой</th>
+        </tr>
+    <?php        
+
+        $sql = "UPDATE `cosmos`.`users` SET  `pay_by_firm` =  '0' WHERE DATEDIFF(NOW(),last_pay_by_firm)>365 AND `pay_by_firm` = '1'";
+        $result = db1::query($sql);
+        $sql = "SELECT subdomen,pay_by_firm,last_buy,last_pay_by_firm,id FROM  `users` WHERE  `pack` > 0 AND DATEDIFF(NOW(),last_buy) < 365 ORDER BY pay_by_firm";
+        $result = db1::query($sql);
+            $i = 0;
+            while($row = db1::fetch($result)) {
+                $row = (array)$row;
+                switch($row['pay_by_firm']) {
+                    case 0: $class="class='nopay'"; $checkbox="<input name='payd[{$i}]' type='checkbox' value='{$row['id']}'/>"; break;
+                    case 1: $class="class='pay'"; $checkbox=""; break;
+                }
+                print <<<here
+            <tr {$class}>
+            <td>{$checkbox}</td>
+            <td >{$row['subdomen']}</td><td> {$row['last_buy']}</td><td> {$row['last_pay_by_firm']}</td></tr>
+here;
+                $i++;
+            }
+            ?>
+    </table>
+    </form>
+</div>

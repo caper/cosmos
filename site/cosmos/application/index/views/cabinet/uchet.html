@@ -1,0 +1,73 @@
+<a class="btn btn-primary" onclick="return CustomUI.showForm('form-export');">Вывести</a>
+<form method="POST" action="/cabinet/export/" id="form-export" class="popup-form popup-ajax" title="Выберите способ">
+    <div class="popup-form-content">
+        <input type="hidden" name="form[total]" value="<?= $this->user->total?>" />
+        <input type="radio" name="form[export_type]" value="webmoney" checked="checked" /> Webmoney
+        <br><input type="radio" name="form[export_type]" value="karta" /> Карта
+    </div>
+    <div class="popup-form-footer">
+        <a href="#" class="btn btn-success" onclick="$(this).closest('form').submit(); return false;">Вывести</a>
+    </div>
+</form>
+
+<button id="obmen" class="btn btn-primary" onclick="return CustomUI.showForm('form-obmen');">Обменять на ваучер</button> 
+<form method="post" action="/cabinet/obmenvaucher/" id="form-obmen" class="popup-form popup-ajax" title="Обмен на ваучер">
+    <div class="popup-form-content">
+        <select name="form[pack]">
+            <option value="1">Member Pack - 190</option>
+            <option value="2">Start Pack - 760</option>
+            <option value="3">Business Pack - 1470</option>
+        </select>
+    </div>
+	<input type="hidden" value="<?=$this->user->email?>" name="email"/>
+    <div class="popup-form-footer">
+        <input type="submit" value="Обменять" class="btn btn-success" />
+    </div>
+</form>
+
+<?switch( $this->user->pack) {
+    case 0: $packname = "Отсутствует"; ?><a class="btn btn-primary" onclick="return loadContent($(this).attr('href'));" href='/cabinet/webmoney_pay/'>Купить бизнес-пакет</a><? break;
+    case 1: $packname = "Member Pack - 190$"; ?><a class="btn btn-primary" onclick="return loadContent($(this).attr('href'));" href='/cabinet/webmoney_upgrade/'>Upgrade бизнес-пакета</a><? break;
+    case 2: $packname = "Start Pack - 760$"; ?><a class="btn btn-primary" onclick="return loadContent($(this).attr('href'));" href='/cabinet/webmoney_upgrade/'>Upgrade бизнес-пакета</a><? break;
+    case 3: $packname = "Business Pack - 1470$"; break;
+    default: $packname = null; break;
+}?>
+
+<table id="info" cellpadding="2" border="1" rules="all" class="table table-bordered" style="margin-top: 1em;" >
+	<tr class="info_name">
+	    <td>ПАКЕТ</td>
+	    <td>PV</td>
+	    <td>A левая cv</td>
+	    <td>A правая cv</td>
+	    <td>R cv</td>
+	    <td>L cv</td>
+	    <td>Total</td>
+	    <td>На выплату</td>
+	</tr>
+	<tr>
+	    <td><?=$packname?></td>
+	    <td><?=$this->user->pv?></td>
+	    <td><?=$this->user->cva0?></td>
+	    <td><?=$this->user->cva1?></td>
+	    <td><?=$this->user->cvr?></td>
+	    <td><?=$this->user->cvl?></td>
+	    <td><?=$this->user->total?></td>
+	    <td><?=$this->user->cash?></td>
+	</tr>
+</table>
+
+<form id="vaucher_get_pack" method="post" action="/cabinet/getpack/" class="popup-ajax" title="Ваучер">
+    Введите код ваучера:
+    <div class="input-group" style="white-space: nowrap; margin-top: .5em;">
+	    <input type="text" name="form[code]" class="form-control span1" style="margin-right: .5em;" />
+	    <input type="submit" value="ок" class="btn btn-success" />
+    </div>
+</form>
+
+<script>
+    $(function(){
+        $('#work_window .popup-ajax').customSubmit({
+            json: true
+        });
+    });
+</script>

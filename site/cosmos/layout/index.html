@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    <title>COSMOS – упорядоченная система для увеличения человеческих благ</title>
+
+    <link rel="shortcut icon" href="/favicon.ico?v=1" /> 
+    <!-- JQuery -->
+    <script src="/js/jquery-1.10.1.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Bootstrap
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+        
+    -->
+
+    <!-- Formstyler -->
+    <script src="/form-styler/jquery.formstyler.min.js"></script>
+    <link href="/form-styler/jquery.formstyler.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="/burnstudio/style.css">
+    <script src="/burnstudio/js/slides.min.jquery.js"></script>
+
+    <!-- Validator -->
+    <link href="/validation/css/validationEngine.jquery.css" media="screen" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/validation/js/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="/validation/js/jquery.validationEngine-ru.js"></script>
+
+    <!-- Datepicker -->
+    <link href="/datepicker/datepicker.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/datepicker/locales/bootstrap-datepicker.ru.js"></script>
+
+    <!-- CustomUI -->
+    <link rel="stylesheet" href="/custom-ui/custom-ui.css">
+    <script src="/custom-ui/custom-ui.js"></script>
+
+   <script>
+        $(function(){
+            try {
+                // кастомизация инпутов
+                $('input[type=checkbox], input[type=radio], select, input[type=file], input[type=text], input[type=password], input[type=submit], textarea').styler({
+                    selectVisibleOptions: 20,
+                });
+                
+                // выбор даты
+                if($.fn.datepicker != undefined) {
+                    $('.datepicker').datepicker({
+                        format: 'dd.mm.yyyy',
+                        language: 'ru',
+                        weekStart: 1
+                    }).on('changeDate', function(e) {
+                       $(this).datepicker('hide');
+                    });
+                } else {
+                    alert('eee');
+                }
+                
+                return false;
+            } catch(e) {
+                alert(e);
+            }
+        });
+   </script>
+    <!--[if IE]>
+    <script type="text/javascript">
+    (function(){
+    var html5elmeents = "address|article|aside|audio|canvas|command|datalist|details|dialog|figure|figcaption|footer|header|hgroup|keygen|mark|meter|menu|nav|progress|ruby|section|time|video".split('|');
+    for(var i = 0; i < html5elmeents.length; i++){
+    document.createElement(html5elmeents[i]);
+    }
+    }
+    )();
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="header-wrap">
+        <header class="group">
+            <h2><a href="/" title="COSMOS">COSMOS</a></h2>
+            <div id="call">
+                <h3>+7 (843) 000-00-00</h3>
+                <h4 class="green">Позвоните нам <strong>сейчас</strong></h4>
+            </div><!-- end call -->
+                    <div id="box-login">
+                            <?if(Model_User::isLogged()){?>
+                                <?$user=Model_User::getUser()?>
+                                <a href="/cabinet/" style="position: relative;"><img src="/img/user.png" alt="u" align="absmiddle" style="position: absolute; top: 1px; left: -18px;" /><?=$user->subdomen?></a>
+                                <div style="margin: 8px 0"><a style="font-size: 9pt; margin-top: .5em" href="/cabinet/" >Личный кабинет</a></div>
+                                <div style="margin: 8px 0"><a style="color: #aaa; font-size: 8pt; margin-top: .5em" href="/cabinet/logout/" style="position: relative;">Выход</a></div>
+                            <?}else{?>
+                                <?if(Model_User::getDomainsName() != 'cosmos'){?>
+                                <a href="/cabinet/" style="position: relative;"><img src="/img/enter.png" alt="u" align="absmiddle" style="position: absolute; top: 1px; left: -18px;" />Вход</a>
+                                <?}?>
+                            <?}?>
+                        <? if($du = Model_User::getDomainsUser()) { ?>
+                            <?if(!Model_User::isLogged()){?>
+                            <a href="/reg/?invite_id=<?=$du->id;?>" style="position: relative; margin-left: 2em;"><img src="/img/user.png" alt="u" align="absmiddle" style="position: absolute; top: 1px; left: -18px;" />Регистрация</a>
+                            <?}?>
+                        <? }?>
+                    </div>
+            <nav class="group">
+                <?=Plugin_Menu::draw('main-menu')?>
+            </nav>
+        </header>
+    </div><!-- end header wrap -->
+
+<div id="container">
+    <?=$this->drawView()?>
+</div>
+    
+    <div id="widget-wrap" class="group">
+        <div id="widget">
+            <div id="links" class="group">
+                <h4 class="white">Другие <strong>ссылки</strong></h4>
+                <ul style="margin-top: 1em;">
+                    <li><a href="http://invertor.ru/solbat.html">invertor.ru</a></li>
+                    <li><a href="http://www.solnechnye.ru/batareya/">www.solnechnye.ru/</a></li>
+                    <li><a href="http://www.helios-house.ru/solnechnye-batarei/">www.helios-house.ru/</a></li>
+                    <li><a href="http://zis-solar.ru/">zis-solar.ru/</a></li>
+                    <li><a href="http://bekar-europe.ru/p3913873-solnechnye-batarei-kazan.html">bekar-europe.ru</a></li>
+                    <li><!-- webmoney attestation label#B6C87801-D538-4B32-A1CF-A2AC8DDD7C5E begin -->
+
+					<a href="http://passport.webmoney.ru/asp/certview.asp?wmid=345657226149" target="_blank">
+
+					<img src="http://passport.webmoney.ru/images/atstimg/attestated1.gif" border="0">
+
+					</a> 
+
+					<!-- webmoney attestation label#B6C87801-D538-4B32-A1CF-A2AC8DDD7C5E end --></li>
+                </ul>
+            </div>
+            <div id="blog">
+                <h4 class="footer-header white">Сообщение <strong>из блогов</strong></h4>
+                <img src="/burnstudio/images/blog.png" alt="blog" />
+                <p class="title">Но для того, чтобы помочь всему социуму, каждый человек должен сделать встречный шаг, помочь самому себе и своему ближнему в изменении к лучшему нашу жизнь на планете Земля.</p>
+                <p class="date">05.11.2013</p>
+                <!-- <p><a href="#" class="readmore">читать блоги</a></p> -->
+            </div><!-- end blog -->
+            
+            <div id="location">
+                <h4 class="footer-header white">Наше <strong>местоположение</strong></h4>
+                <img src="/burnstudio/images/map.png" alt="map" />
+                <p class="address">Россия, Республика Татарстан,
+                </br> г. Казань, ул. Кремлевская, д. 1</p>
+            </div><!-- end location -->
+        </div><!-- end widget -->
+    </div> <!--! end widget-wrap -->
+
+    <?/*
+    <div id="client-wrap" class="group">
+        <div id="client">
+            <ul>
+                <li><img src="/burnstudio/images/client-1.jpg" alt="" /></li>
+                <li><img src="/burnstudio/images/client-2.jpg" alt="" /></li>
+                <li><img src="/burnstudio/images/client-3.jpg" alt="" /></li>
+                <li><img src="/burnstudio/images/client-4.jpg" alt="" /></li>
+                <li><img src="/burnstudio/images/client-5.jpg" alt="" /></li>
+            </ul>
+        </div><!-- end client -->
+    </div><!-- end client-wrap -->
+    */?>
+
+    <footer class="group">
+        <div id="footer-left">
+            <p>&copy 2013, <a href="http://www.future-art.ru/" class="green">www.future-art.ru</a> </br>
+            Все права защищены</p>
+        </div>
+            
+        <div id="footer-right">
+            <?=Plugin_Menu::draw('main-menu')?>
+        </div>
+                
+        <a href="#header-wrap"><img src="/burnstudio/images/back-top.png" alt="back-top" class="back-top" /></a>        
+    </footer>
+    
+    
+<script>
+        $(function(){
+            $('#slides').slides({
+                preload: true,
+                generateNextPrev: true,
+                paginationClass: 'pagination2', // string, Class name for pagination
+                play: 0,
+                slideSpeed: 500,
+                effect: 'slide'
+            });
+        });
+</script>
+
+</body>
+</html>

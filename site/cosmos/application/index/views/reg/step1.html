@@ -1,0 +1,76 @@
+<script>
+
+$( "#country" ).change(function () { //выбор страны,сделал отдельные файлы,так как стран будет много, и в каждой стране свои нюансы регистрации
+
+		//пользуюсь settimeout чтобы действия шли последовательно,делал первый раз,способ показался нормальным)
+		$("#info").fadeTo("fast", 0);
+		$("#info").empty();
+		
+		var country= $( "#country option:selected" ).text(); //получаю название выбранной страны
+		
+		setTimeout(function(){
+			switch(country)
+			{
+				case "Россия":		
+					$( "#info" ).load( "/reg/regrus/", function(){restyler();} ); //подгружаю файл для России
+					break;
+				case "Украина":	
+					$( "#info" ).load( "/reg/regukr/", function(){restyler();} ); //для Украины
+					break;	
+			}
+		},200);
+		
+		setTimeout(function(){$('#info').fadeTo('fast',1);},200);
+	  })
+	  
+$( "#step1_finished" ).click(function() { //нажатие кнопки подтверждения первого шага,куда то в него скорее всего надо вставлять скрипт отправки кода по смс
+		
+		var empty=0; 
+		
+		$("#info :input").each(function(indx){
+			if ($(this).val()=="") empty=1;  //если хоть один элемент пустой, то empty =1
+		});
+		
+		
+		if(empty==1)
+		{
+			$("#main .error").replaceWith("<span class='error'>Заполните все поля!</span>");
+		}
+		else
+		{
+			$("#main  .error").empty();
+			$( "#sms_permit" ).css({'display':'block','opacity':'0'});
+			  $( "#sms_permit" ).animate({
+				height: "100px",
+				opacity: 1,
+			  }, 500 ); //показываю поле для подтверждения смс
+			  
+			  var height= $("body").height(); 
+			$("html,body").animate({"scrollTop":height},500); //прокручиваю до нужного момента страницу
+		}
+			
+		
+		});	  
+		
+		
+	</script>
+	
+	<span class="step_number">Шаг 1</span> <br>
+		<div class="step">
+
+			Страна: <select id="country">
+					  <option value="Россия" selected="selected">Россия</option>
+					  <option value="Украина">Украина</option>
+					</select>
+			<br />
+			<div id="info">
+			<script>
+				$( "#info" ).load('/reg/regrus/'); //изначально выбрана Россия
+				</script>
+			<!-- тут содержимое меняется в зависимости от того, какая страна выбрана-->
+			</div>
+			<input id="permit" type="checkbox"> Я согласен с условиями соглашения.
+			<a  id="step1_finished" class="button">Отправить</a>
+			<span class="error"></span>
+		
+		</div>

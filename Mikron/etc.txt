@@ -1,0 +1,16 @@
+------------------- HelpDoc -------------------------
+
+    # Change default layouts directory:  Mik::$cur_layouts_directory = M_WWW_ROOT.'/layout';
+    # Change default layout:             page::$layout = 'index';
+
+------------------- May be --------------------------
+
+    /**
+    * Перенаправление маршрутов
+    */
+    /*$routes = new routes();
+    $routes->get('/user/{login}', function($login) use($routes) {
+           $route->redirect('/index/user', array('login' => $login));
+        })->where(array('del' => null, 'login' => '[a-z_0-9]+'));
+        */
+

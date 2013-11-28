@@ -1,0 +1,354 @@
+<link rel="stylesheet" type="text/css" href="/css/lar.css">
+    <!-- JQuery -->
+    <script src="/js/jquery-1.10.1.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    
+    <style>
+        html, body {
+            font-family: Arial;
+        }
+    </style>
+
+
+<script>
+$( document ).ready(function() {
+	$( "#a" ).on( "click", function(){
+
+		$("#a_show").css({'display':'block'});
+		$("#r_show").css({'display':'none'});
+		$("#l_show").css({'display':'none'});
+	});
+	$( "#r" ).on( "click", function(){
+
+		$("#a_show").css({'display':'none'});
+		$("#r_show").css({'display':'block'});
+		$("#l_show").css({'display':'none'});
+	});
+	$( "#l" ).on( "click", function(){
+
+		$("#a_show").css({'display':'none'});
+		$("#r_show").css({'display':'none'});
+		$("#l_show").css({'display':'block'});
+	});
+	
+	$( ".message" ).on( "click", function(){
+		
+		var parent = $(this).parent();
+		
+		if ($(parent).children(".message_input").css('display')=="block")	
+			$(parent).children(".message_input").css({'display':'none'});
+		else $(parent).children(".message_input").css({'display':'block'});
+		
+	});
+	
+	$( ".ticket" ).on( "click", function(){
+		
+		var parent = $(this).parent();
+		
+		if ($(parent).children(".ticket_message").css('display')=="block")	
+			$(parent).children(".ticket_message").css({'display':'none'});
+		else $(parent).children(".ticket_message").css({'display':'block'});
+		
+	});
+	
+});
+</script>
+
+</head>
+<body>
+<div id="all">
+<?php
+$conn = null;
+				
+function show_lar($id,$name,$id_div,$ticket,$ticket_message)
+		{
+			if (!empty($id)) {
+			print<<<here
+			
+			<div class="a{$id_div}">
+			<table rules="rows"><tr>
+			<td colspan="3" class="name">{$name}</td>
+			</tr>
+here;
+			
+			if ($id!=$_POST['id']) {
+				switch($ticket)
+				{
+					case 0: $class=""; break;
+					case 1: $class="green"; break;
+					case 2: $class="yellow"; break;
+					case 3: $class="red"; break;
+				}
+				print<<<here
+				<tr>
+				<td align="center"><img class="message" src="/img/message.jpg"/>
+				<form class="message_input" method="post">
+					<textarea type="text" name="message"/>
+					</textarea>
+					<input type="submit" value="Написать"/>
+					<input type="hidden" name="message_to_id" value="{$id}"/>
+				</form>
+				</td>
+				<td align="center">
+				
+				<div class="ticket {$class}"></div>	
+here;
+				if($ticket!=0) {	
+					print<<<here
+					<div class="ticket_message">
+					{$ticket_message}
+					</div></td>
+here;
+				}
+			}	
+
+
+		print<<<here
+		<!--span >{$id}</span-->
+		<tr><td>
+		<form method="post" class="l">
+			<input type="submit" value="l">
+			<input type="hidden" value="{$id}" name="id">
+			<input type="hidden" value="l" name="type">
+			<input type="hidden" value="{$_POST['id']}" name="id_before">
+		</form>
+		</td>
+		<td><form method="post">
+			<input type="submit" value="a">
+			<input type="hidden" value="{$id}" name="id">
+			<input type="hidden" value="a" name="type">
+			<input type="hidden" value="{$_POST['id']}" name="id_before">
+		</form>
+		</td>
+		<td>
+		<form method="post">
+			<input type="submit" value="r">
+			<input type="hidden" value="{$id}" name="id">
+			<input type="hidden" value="r" name="type">
+			<input type="hidden" value="{$_POST['id']}" name="id_before">
+		</form>
+		</td></tr>
+		</table>
+		
+	</div>
+	
+	<div class="line{$id_div}"></div>
+here;
+			}
+		}
+
+
+		
+function right_wing($parent,$side,$r,$l,$conn,$type)
+{
+	global $id_div;
+	$id_div++;
+	if($side==0) $type=0;
+	if($parent!=0)
+	{
+		$sql = "SELECT * from users where parent={$parent} and side={$side} and type={$type}";
+		$result = db1::query($sql);
+		
+		
+		if (!empty($result))
+			{
+				$user=mysql_fetch_assoc($result);
+				show_lar($user['id'],$user['subdomen'],$id_div,$user['ticket'],$user['ticket_message']);
+			}
+	}
+	else  {$user['id']=0;}		
+	
+	
+	
+	
+		if($r<=2) {
+			$r++;
+			right_wing($user['id'],1,$r,$l,$conn,$type);
+		}
+		
+		if($l<=1) {
+			$l++;	
+			right_wing($user['id'],0,4,$l,$conn,$type);
+		}
+	
+}
+
+function left_wing($parent,$side,$r,$l,$conn,$type)
+{
+	global $id_div;
+	$id_div++;
+	if($side==1) $type=0;
+	if($parent!=0)
+	{
+		$sql=<<<here
+		SELECT * from users where parent={$parent} and side={$side} and type={$type};
+here;
+		$result = db1::query($sql);
+		
+		if(!empty($result)) {	
+			$user = mysql_fetch_assoc($result);
+			show_lar($user['id'],$user['subdomen'],$id_div,$user['ticket'],$user['ticket_message']);
+	
+		} 
+	}
+	else  {$user['id']=0;}
+	
+	
+		if($l<=2) {
+			$l++;	
+			left_wing($user['id'],0,$r,$l,$conn,$type);
+		}
+		
+		if($r<=1) {
+			$r++;		
+			left_wing($user['id'],1,$r,4,$conn,$type);
+		}
+	
+}
+
+if(Model_User::isLogged()) {
+
+	$subdomen = Model_User::getDomainsName();
+
+				$sql=<<<here
+			SELECT * from users where subdomen='{$subdomen}';
+here;
+
+		$result = db1::query($sql);
+			
+		$user2=mysql_fetch_assoc($result);
+		
+	
+		if(isset($_POST['message'])) 
+		{	
+			$date=date("o-m-d G:H:s");
+					
+					$sql=<<<here
+						INSERT INTO  `cosmos`.`messages` (
+						`id_from` ,
+						`id_to`,
+						`date`,
+						`message`,
+						`name_from`
+						)
+						VALUES (
+						'{$this->user->id}',  '{$_POST['message_to_id']}', '{$date}', '{$_POST['message']}', '{$subdomen}'
+						);
+here;
+			
+			$result = db1::query($sql);
+		}
+		
+		
+		if(!isset($_POST['id'])) 
+		{	
+			$_POST['type']='a';
+			$_POST['id']=$this->user->id;
+			unset($_SESSION['ofis_history']);
+			$_SESSION['ofis_history'][0]=$this->user->id;
+		}	
+		else 
+		{
+			if (!isset($_POST['step_before']))
+				$_SESSION['ofis_history'][]=$_POST['id'];			
+		}	
+		
+		$count_history=count($_SESSION['ofis_history']);
+		
+			if (isset($_POST['step_before'])) unset($_SESSION['ofis_history'][$count_history-1]);
+		
+		$count_history=count($_SESSION['ofis_history']);
+		
+		print <<<here
+		<a href="" class="btn btn-primary" style="margin-bottom: .5em;">Свой офис</a>
+here;
+
+		if($count_history>1)
+		{ print<<<here
+			| <form method="POST">
+				<input type="submit" value="назад">
+				<input type="hidden" value="{$_SESSION['ofis_history'][$count_history-2]}" name="id">
+				<input type="hidden" value="1" name="step_before">
+				<input type="hidden" value="a" name="type">
+			</form>
+here;
+		}	
+		
+		
+		
+		
+			switch($_POST['type'])
+			{
+				case 'l': 
+				$display_a="style='display:none'";
+				$display_r="style='display:none'";
+				$display_l="style='display:block'";
+				
+				break;
+				case 'a': $display_r="style='display:none'";
+				$display_l="style='display:none'";
+				$display_a="style='display:block'";
+				
+				break;
+				case 'r': $display_a="style='display:none'";
+				$display_l="style='display:none'";
+				$display_r="style='display:block'";
+			
+				break;
+				default: $display_r="style='display:none'";$display_l="style='display:none'";
+				break;
+			}
+
+		
+		print<<<here
+		<div id="arl">
+		
+			<button id="a" >A</button>
+			<button id="r" >R</button>
+			<button id="l" >L</button><br>
+
+		</div>
+
+here;
+		
+		
+		//echo "<pre>"; print_r($_SESSION); echo "</pre>";
+			
+			$sql=<<<here
+			SELECT * from users where id={$_POST['id']};
+here;
+
+		$result = db1::query($sql);
+			
+		$user=mysql_fetch_assoc($result);
+		
+		show_lar($_POST['id'],"<b>{$user['subdomen']}</b>",0,0,'0');
+		global $id_div;
+		$id_div=0;
+		
+			print "<div id='a_show' {$display_a}><span class='ofis_name'>Офис A</span> ";
+		right_wing($_POST['id'],1,1,0,$conn,0);
+		
+		left_wing($_POST['id'],0,0,1,$conn,0);
+			print "</div>";
+		$id_div=0;
+			print "<div id='r_show' {$display_r}><span class='ofis_name'>Офис R</span>";
+		right_wing($_POST['id'],1,1,0,$conn,0);
+		
+		left_wing($_POST['id'],0,0,1,$conn,1);
+			print "</div>";
+		$id_div=0;	
+			print "<div id='l_show' {$display_l}> <span class='ofis_name'>Офис L</span>";
+		right_wing($_POST['id'],1,1,0,$conn,2);
+		
+		left_wing($_POST['id'],0,0,1,$conn,0);
+			print "</div>";
+}
+	
+		?>
+
+
+	
+</div>
+</body>
+</html>

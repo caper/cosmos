@@ -1,0 +1,45 @@
+<form method="post" action="" style="margin: 2em;">
+    <table class="table table-bordered" style="margin-top: 1em;">
+        <tr>
+            <td></td>
+            <td>Пользователь</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Отчество</td>
+            <td>Кошелек webmoney</td>
+            <td>Серия паспорта</td>
+            <td>Номер паспорта</td>
+            <td>Выдана</td>
+            <td>Инн</td>
+            <td>Паспорт - фотография</td>
+            <td>Паспорт - прописка</td>
+            <td>Инн</td>
+            <td>Кредитная карта</td>
+        </tr>
+        <?
+        $i = 0;
+        while($row = db1::fetch($this->user_list)) {
+            $row = (array)$row;?>
+            <tr>
+                <td><input name="permit[<?=++$i?>]" type="checkbox" value="<?=$row['subdomen']?>" />
+                <td><?=$row['subdomen']?></td>
+                <td><?=$row['name']?></td>
+                <td><?=$row['surname']?></td>
+                <td><?=$row['middle_name']?></td>
+                <td><?=$row['webmoney']?></td>
+                <td><?=$row['number_passport']?></td>
+                <td><?=$row['seria_passport']?></td>
+                <td><?=$row['vidana']?></td>
+                <td><?=$row['inn']?></td>
+                <td><a target="_blank" href= "/uploads/document/passport1<?=$row['subdomen']?>.png"" ><img width="100px"  src="/uploads/document/passport1<?=$row['subdomen']?>.png" /></a></td>
+                <td><a target="_blank" href= "/uploads/document/passport2<?=$row['subdomen']?>.png"" ><img width="100px"  src="/uploads/document/passport2<?=$row['subdomen']?>.png" /></a></td>
+                <td><a target="_blank" href= "/uploads/document/inn<?=$row['subdomen']?>.png"" ><img width="100px"  src="/uploads/document/inn<?=$row['subdomen']?>.png" /></a></td>
+                <td><a target="_blank" href= "/uploads/document/credit<?=$row['subdomen']?>.png"" ><img width="100px"  src="/uploads/document/credit<?=$row['subdomen']?>.png" /></a></td>
+                
+            </tr>
+    <?}?>
+    </table>
+    <input id="pay" type="submit" value="Подтвердить пользователя" class="btn btn-primary" />
+<a href="/superadmin/showUsers/"  class="btn btn-primary"> Информация о пользователях </a>
+
+</form>

@@ -1,0 +1,40 @@
+<?php
+function line($id_child_array, $i) {
+    if(isset($id_child_array)&&$i<=4) {
+        $id_array = $id_child_array;
+        unset($id_child_array);
+        $id_child_array = array();
+		echo '<tr><td><b>'.$i.'</b></td><td>';
+		$i++;
+        foreach($id_array as $key=>$value) {
+            $sql = "SELECT * FROM  `users` WHERE  `invited` = {$value}";
+            $result = db1::query($sql);
+			
+            if(mysql_num_rows($result) != 0) {
+               
+                while($row = db1::fetch($result)) {
+                    $row = (array)$row;
+                    $id_child_array[] = $row['id'];
+                    echo $row['subdomen'].', ';
+                }
+                
+            }
+			
+        }
+		echo '</td></tr>';
+        if(count($id_child_array)) {
+            line($id_child_array, $i);
+        }
+    }
+}
+?>
+
+<h4>Линейная структура</h4>
+<table class="table table-bordered table-condenced">
+    <tr>
+        <th>№ линии</th>
+        <th>Участники</th>
+    </tr>
+    <?line(array($this->user->id), 1);?>
+	<tr><td></td><td>Дальше еще больше в 4 раза..........</td></tr>
+</table>

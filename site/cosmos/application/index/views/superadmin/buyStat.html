@@ -1,0 +1,49 @@
+
+    <table class="table table-bordered" style="margin-top: 1em;">
+        <tr>
+            <td>Дата</td>
+            <td>Пользователь</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Стоимость</td>
+            <td>Пакет</td>
+            <td>Кошелек webmoney</td>
+            <td>Тип покупки</td>
+			
+            
+        </tr>
+        <?
+        $i = 0;
+        while($row = db1::fetch($this->user_list)) {
+            $row = (array)$row;
+			$sql2 = "SELECT surname,name,subdomen,webmoney FROM  `users` where `id` = '{$row['id']}' ";            
+			$result2=db1::query($sql2);
+			
+			$row2=db1::fetch($result2);
+			
+			 switch($row['pack']) {
+            case 1: $packname = "Member Pack";  break;
+            case 2: $packname = "Start Pack"; break;
+            case 3: $packname = "Business Pack";  break;
+			}
+			
+		?>
+            <tr>
+                <td><?=$row['date']?></td>
+                <td><!--form action="/cabinet/lar/">
+				<input type="hidden" value="" name="id"/>
+				<a href="" onclick="$(this).closest('form').submit(); return false;"><?=$row2->subdomen?></a>
+				</form-->
+				<?=$row2->subdomen?>
+				</td>
+                <td><?=$row2->name?></td>
+                <td><?=$row2->surname?></td>
+                <td><?=$row['count']?>$</td>
+                <td><?=$packname?></td>
+                <td><?=$row['PAYER_PURSE']?></td>
+                <td><?=$row['buy_type']?></td>
+          
+            </tr>
+    <?}?>
+    </table>
+    

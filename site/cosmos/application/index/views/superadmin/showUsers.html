@@ -1,0 +1,32 @@
+ <table class="table table-bordered" style="margin-top: 1em;">
+        <tr>
+            
+            <td>Пользователь</td>
+            <td>PV</td>
+            <td>CV A левая</td>
+            <td>CV A правая</td>
+            <td>CV R</td>
+            <td>CV L</td>
+			<td>WEEK_TOTAL</td>
+            <td>TOTAL</td>
+            <td>ДЕНЬГИ НА ВЫВОД</td>
+ 
+        </tr>
+        <?
+        $i = 0;
+        while($row = db1::fetch($this->user_list)) {
+            $row = (array)$row;?>
+            <tr>
+               <td><?=$row['subdomen']?></td>
+               <td><?=$row['pv']?></td>
+                <td><?=$row['cva0']?></td>
+                <td><?=$row['cva1']?></td>
+                <td><?=$row['cvr']?></td>
+                <td><?=$row['cvl']?></td>
+                <td><?=$row['week_total']?></td>
+                <td><?=$row['total']?></td>
+                <td><?=$row['cash']?></td>
+                
+            </tr>
+    <?}?>
+    </table>

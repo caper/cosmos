@@ -1,0 +1,33 @@
+<p style="margin:30px;">
+<?php
+ //echo "<pre>"; print_r($_POST); echo "</pre>";
+
+
+			
+if (isset($_GET['success_reg']))
+{	
+		print "На ваш почтовый ящик отправлено письмо с ссылкой для подтверждения почты.";
+}
+else if (isset($_GET['hash']))
+{
+	$sql=<<<here
+		SELECT `code` FROM `cosmos`.`waiting_for_permit` WHERE `code` LIKE '{$_GET['hash']}';
+here;
+
+	$result = db1::query($sql);
+	if(mysql_num_rows($result)!=0)
+	{
+		$sql=<<<here
+		UPDATE  `cosmos`.`waiting_for_permit` SET  `permit_email` =  '1' WHERE  `waiting_for_permit`.`code` LIKE '{$_GET['hash']}';
+here;
+		$result = db1::query($sql);
+		
+		print "Вы успешно зарегистрировались. Ожидайте подтверждения вашей регистрации рефералом и проверки ваших документов.";
+	}
+	
+}
+	
+	
+	
+?>
+</p>

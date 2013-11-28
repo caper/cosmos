@@ -1,0 +1,220 @@
+html, body { height: 100%; margin:0; padding:0;  }
+
+#wrap {width:980px; margin:1% auto ; height: 650px;   }
+ 
+#left_top {width:128px; margin-right: 10px;  margin-bottom:10px;
+float:left; height:450px; /* border:1px solid black; */ min-height:200px;} 
+
+#work_window {
+    width: 714px;
+    min-height: 200px;
+    vertical-align: top;
+}
+
+
+#left_bottom { height:36%;  clear: both; width:855px; float:right; }
+#right_bottom { height:36%; width: 130px;   float:right;}
+
+
+#id1,#id2,#id3,#id4,#id5 { height: 93px; min-height:0px; cursor:pointer;
+position:relative;}
+
+#id6,#id7,#id8,#id9,#id10,#id10_1,#id12,#id13 { min-height:0px; 
+cursor:pointer; height:93px; position:relative; }
+span {  bottom:2px; left:6px; position:absolute; font-size:16px; 
+font-family: Georgia, 'Times New Roman', Times, serif;}
+
+#line1,#line2,#line3,#line5,#line4,#line6,#line7,#line8,#line9,#line10,#line10_1,#line11,#line12,#line13{
+position:absolute; display:none; 
+ height: 12px; 
+
+}
+#line1,#line3{  height: 14px;}
+#line7,#line8,#line11,#line13 { 
+height: 12px;
+z-index: 99;}
+
+
+
+#line1,#line3{  height: 14px; z-index: 99}
+
+#line9,#line10,#line10_1,#line13{  height: 117px; z-index: 99}
+
+
+#id1 { border:1px solid lightgrey;
+width: 252px; background: linear-gradient(to right, #2E8B57, #3CB371);
+position:relative;
+}
+#line1 {  right:-12px; background-color: #3CB371;
+top:-1px; width: 12px;  border-top:1px solid lightgrey;
+border-bottom:1px solid lightgrey;}
+
+#id2 { clear:both; float:left; border:1px solid lightgrey;
+width: 120px; background: linear-gradient(to right, #0000CD, #4169E1);
+ margin-top: 10px;}
+#line2 { right: -144px;
+background-color: #4169E1;
+top: -10px;
+width: 155px;
+z-index: 99;
+height: 8px; }
+#subline2 {display: none;
+right: -1px;
+border-right:1px solid lightgrey;
+border-left:1px solid lightgrey;
+position: absolute;
+background-color: rgb(65, 105, 225);
+top: -10px;
+width: 12px;
+height: 10px;
+z-index: 99;}
+
+
+#id3 { clear:right; float:right; border:1px solid lightgrey;
+width: 120px;
+ margin-top: 10px; margin-bottom: 10px;  background: linear-gradient(to right, #A020F0, #9370DB);}
+
+ #line3 {  right:-12px;  background-color: #9370DB;
+top:-1px; width: 12px;  border-top:1px solid lightgrey;
+border-bottom:1px solid lightgrey;}
+
+
+#id4 { clear: both; border:1px solid lightgrey;
+width: 252px;  background: white;
+ margin-top: 10px; margin-bottom: 10px;}
+ #line4 {  right:-12px;  background-color: white;
+top:-1px; width: 12px;  border-top:1px solid lightgrey;
+border-bottom:1px solid lightgrey;}
+
+
+
+#id5 { border:1px solid lightgrey;
+width: 252px;  
+background-image: url(img/pogoda.png); position:relative;
+}
+ #line5 {  right:-12px;  background-color: white;
+top:-1px; width: 12px;  border-top:1px solid lightgrey;
+border-bottom:1px solid lightgrey;}
+
+
+#id6 { border:1px solid lightgrey; clear:both; float:left; height:93px;
+width: 252px; background: linear-gradient(to right, #0000CD, #4169E1);
+  margin-bottom:10px; margin-right:10px;}
+ #line6 {  right: -10px;
+background-color: #4169E1;
+top: -34px;
+width: 7px;
+height: 34px;
+z-index: 99;}
+#subline6 {    right: -10px;
+display: none;
+background-color: #4169E1;
+top: -1px;
+width: 10px;
+border-top: 1px solid lightgrey;
+border-bottom: 1px solid lightgrey;
+position: absolute;
+height: 12px;}
+#subsubline6 {
+right: -12px;
+display: none;
+background-color: #4169E1;
+top: -46px;
+width: 9px;
+border-top: 1px solid lightgrey;
+border-bottom: 1px solid lightgrey;
+position: absolute;
+height: 12px;
+}
+	
+	
+#id7 { border:1px solid lightgrey;  
+ width: 122px; float:right;  
+ background: linear-gradient(to right, #FF4500, #FF6347);
+ }
+  #line7 {  right: -1px;
+background-color: #FF6347;
+top: -12px;
+width: 12px;
+border-left: 1px solid lightgrey;
+border-right: 1px solid lightgrey;}
+
+#id8 { border:1px solid lightgrey;  float:right;
+width: 252px; background: linear-gradient(to right, #8B8682, #CDC5BF);
+ margin-left:13px;}
+  #line8 {  right: -1px;
+background-color: #CDC5BF;
+top: -12px;
+width: 12px;
+border-left: 1px solid lightgrey;
+border-right: 1px solid lightgrey;}
+
+
+#id9 { border:1px solid lightgrey; clear:both; float:left;
+width: 386px; 
+background: linear-gradient(to right, #A020F0, #9370DB);
+}
+ #line9 {  right: -12px;
+background-color: #9370DB;
+top: -117px;
+width: 9px; }
+#subline9 {    right: -12px;  display:none;  
+    background-color: #9370DB;  top: -1px;  width: 12px;  border-top: 1px solid lightgrey;  border-bottom: 1px solid lightgrey;
+    position: absolute;
+    height: 12px;}
+
+#id10 { border:1px solid lightgrey; 
+width: 121px; float:right; background: linear-gradient(to right, #A020F0, #9370DB);
+ } 
+	
+  #line10 {   right: -12px;
+background-color: #9370DB;
+top: -117px;
+width: 9px;}
+ #subline10 {    right: -12px;  display:none;  
+    background-color: #9370DB;  top: -1px;  width: 12px;  border-top: 1px solid lightgrey;  border-bottom: 1px solid lightgrey;
+    position: absolute;
+    height: 12px;}
+	
+	
+ #id10_1 { border:1px solid lightgrey;  
+width: 118px; float:right; margin-right:10px; background: linear-gradient(to right, #0000CD, #4169E1);
+ } 
+  #line10_1 {  left:-13px;  background-color: #0000CD;
+top:-117px; width: 9px;  }
+ #subline10_1 {    left: -13px;  display:none;  
+    background-color: #0000CD;  top: -1px;  width: 13px;  border-top: 1px solid lightgrey;  border-bottom: 1px solid lightgrey;
+    position: absolute;
+    height: 12px;}
+	
+
+#id11 { border:1px solid lightgrey;  float:left; position:relative;
+width: 175px; background: linear-gradient(to right, #FF4500, #FF6347);
+min-height: 180px; height: 198px; margin-left:12px; cursor:pointer;}
+  #line11 {  right: -1px;
+background-color: #FF6347;
+top: -12px;
+width: 12px;
+border-left: 1px solid lightgrey;
+border-right: 1px solid lightgrey;}
+
+
+ #id12 { border:1px solid lightgrey;  float:right;
+width: 120px; margin-bottom:10px;background: linear-gradient(to right, #A020F0, #9370DB); 
+}
+  #line12 {  right: -1px;
+background-color: #9370DB;
+top: -12px;
+width: 12px;
+border-left: 1px solid lightgrey;
+border-right: 1px solid lightgrey;}
+
+#id13 { border:1px solid lightgrey;  clear:both; float:right;
+ width: 120px;  background: linear-gradient(to right, #2E8B57, #3CB371);
+ }
+ #line13 {  left:-12px;  background-color: #2E8B57;
+top:-117px; width: 9px;  }
+ #subline13 {    left: -12px;  display:none;  
+    background-color: #2E8B57;  top: -1px;  width: 12px;  border-top: 1px solid lightgrey;  border-bottom: 1px solid lightgrey;
+    position: absolute;
+    height: 12px;}

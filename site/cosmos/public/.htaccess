@@ -1,0 +1,15 @@
+RewriteEngine On
+
+RewriteBase /
+RewriteCond %{REQUEST_URI}  !^/js
+RewriteCond %{REQUEST_URI}  !^/img
+RewriteCond %{REQUEST_URI}  !^/css
+RewriteCond %{REQUEST_URI}  !^/public
+RewriteCond %{REQUEST_URI}  !^/favicon.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule !\.(js|ico|gif|html|swf|flv|xml|jpg|jpeg|png|css|pdf|doc|xls|ppt|xlsx)$ /index.php
+
+<FilesMatch "\.(inc|ini)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

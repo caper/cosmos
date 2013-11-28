@@ -1,0 +1,21 @@
+<form id="pay" name="pay" method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp"> 
+    <p>Покупка бизнес-пакета.</p> 
+    <p>
+        <!--input type="hidden" name="LMI_PAYMENT_AMOUNT" value="1.0"-->
+        <select name="LMI_PAYMENT_AMOUNT">
+            <option value="190.0" selected="selected">Member Pack - 190$</option>
+            <option value="760.0">Start Pack - 760$</option>
+            <option value="1470.0">Bussines Pack - 1470$</option>
+        </select>
+        <input type="hidden" name="LMI_PAYMENT_DESC_BASE64" value="<?=base64_encode("Покупка бизнес-пакета")?>"/>
+        <input type="hidden" name="LMI_PAYMENT_NO" value="<?=$this->new_id?>">
+        <input type="hidden" name="LMI_PAYEE_PURSE" value="Z297863048308">
+        <input type="hidden" name="LMI_SIM_MODE" value="0"> 
+        <input type="hidden" name="LMI_SUCCESS_URL" value="http://<?=$this->user->subdomen?>.cosmos.sc/webmoney/paysuccess/">
+        <input type="hidden" name="LMI_RESULT_URL" value="http://<?=$this->user->subdomen?>.cosmos.sc/webmoney/paypermit/"> 
+        <input type="hidden" name="PV" value="100">
+        <input type="hidden" name="id" value="<?=$this->user->id?>" />
+        <input type="hidden" name="side" value="<?=$this->user->side?>" />
+    </p> 
+    <p><input type="submit" value="Продолжить покупку через Webmoney" class="btn btn-primary" /></p> 
+</form>

@@ -1,0 +1,23 @@
+<form method="post" action="" style="margin: 2em;">
+    <table class="table table-bordered" style="margin-top: 1em;">
+        <tr>
+            <td></td>
+            <td>Пользователь</td>
+            <td>Выплата</td>
+            <td>Кошелек webmoney</td>
+        </tr>
+        <?
+        $i = 0;
+        while($row = db1::fetch($this->user_list)) {
+            $row = (array)$row;?>
+            <tr>
+                <td><input name="payd[<?=++$i?>]" type="checkbox" value="<?=$row['id']?>" />
+                <td><?=$row['subdomen']?></td>
+                <td><?=$row['cash']?></td>
+                <td><?=$row['webmoney']?></td>
+            </tr>
+    <?}?>
+    </table>
+    <input id="pay" type="submit" value="Подтвердить факт оплаты у отмеченных" class="btn btn-primary" />
+    <a href="/superadmin/buyStat/"  class="btn btn-primary"> История платежей </a>
+</form>
