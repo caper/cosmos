@@ -146,9 +146,10 @@ class IndexCabinet_Controller extends Mikron_Controller {
                 case 2: $pv = 760; $cv = 200; break;
                 case 3: $pv = 1470; $cv = 450; break;
             }
+			
             $date = date('o-m-d');
-            $sql1 = "UPDATE  `cosmos`.`users` SET  `pv` =  `users`.`pv` + '{$pv}', `pack` = '{$voucher['pack']}' , `last_buy` = '{$date}', `active` = '1' WHERE  `users`.`id` = {$_POST['id']}";
-            $result = db1::query($sql1);
+            $sql1 = "UPDATE  `cosmos`.`users` SET  `pv` =  `users`.`pv` + '{$pv}', `pack` = '{$voucher['pack']}' , `last_buy` = '{$date}', `active` = '1' WHERE  `users`.`id` = {$this->user->id}";
+			$result = db1::query($sql1);
             $sql = "SELECT parent, side, type FROM `users` WHERE  `id` = {$this->user->id}";
             $result = db1::query($sql);
              $row = mysql_fetch_assoc($result);
