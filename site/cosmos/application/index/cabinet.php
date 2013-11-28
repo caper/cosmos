@@ -255,14 +255,14 @@ class IndexCabinet_Controller extends Mikron_Controller {
         }
         $sql = <<<here
 INSERT INTO `cosmos`.`users`(`type` ,`subdomen` ,`parent` ,`side` ,`invited` ,`city` ,`index`, `surname` ,`name` ,`middle_name` ,`birthday` ,`inn` ,`street` ,`house` ,`room`, `password` ,`telephone` ,`email` ,`number_passport` ,`seria_passport` ,`vidana`,
- `webmoney`, `country`, `card_type`, `card_invoice`, `card_nubmer`, `card_owner`, `card_bank`, `card_end_date`)
+ `webmoney`, `country`, `card_type`, `card_invoice`, `card_number`, `card_owner`, `card_bank`, `card_end_date`)
 VALUES (
 '{$type}', '{$_POST['subdomen']}',  '{$user['id']}',  '{$side}', '{$_POST['invite_id']}',  
 '{$_POST['city']}',  '{$_POST['index']}', '{$_POST['surname']}', '{$_POST['name']}', '{$_POST['middle_name']}',
 '{$_POST['birthday']}', '{$_POST['inn']}', '{$_POST['street']}', '{$_POST['house']}', '{$_POST['room']}',
 '{$_POST['password']}', '{$_POST['telephone']}', '{$_POST['email']}',  '{$_POST['number_passport']}',  '{$_POST['seria_passport']}', 
 '{$_POST['vidana']}', '{$_POST['webmoney']}', 
-'{$_POST['country']}', '{$_POST['card_type']}', '{$_POST['card_invoice']}', '{$_POST['card_nubmer']}',
+'{$_POST['country']}', '{$_POST['card_type']}', '{$_POST['card_invoice']}', '{$_POST['card_number']}',
  '{$_POST['card_owner']}', '{$_POST['card_bank']}', '{$_POST['card_end_date']}'
 )
 here;

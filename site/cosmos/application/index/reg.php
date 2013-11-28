@@ -46,14 +46,7 @@ class IndexReg_Controller extends Mikron_Controller {
     public function finish() {
     }
 	
-	public function rusCity() {
-		$this->disabledLayout();
-        $this->disabledView();
-    }
-	
-	
-
-    public function finished() {
+	public function finished() {
         $this->disabledLayout();
         $this->disabledView();
         try {
@@ -101,9 +94,11 @@ class IndexReg_Controller extends Mikron_Controller {
 			}
             $password = md5($this->salt.$form->password);
             // file_put_contents(dirname(__FILE__).'/123.txt', var_export($form, 1));
-            $sql = "INSERT INTO `cosmos`.`waiting_for_permit` (`code`,`permit_email`,`subdomen`,`reg_date`, `city`, `index`, `surname`, `name`, `middle_name`, `birthday`, `inn`, `street`, `house`, `room`, `password`,  `telephone`, `email`, `number_passport`, `seria_passport`, `vidana`, `invite_id`, `webmoney`, `document_permit`, `country`, `card_type`, `card_invoice`, `card_nubmer`, `card_owner`, `card_bank`, `card_end_date`) 
-                    VALUES ('{$code}', '0', '{$form->subdomen}', '{$date}', '{$form->city}', '{$form->index}', '{$form->lastname}', '{$form->firstname}', '{$form->middlename}', '{$form->birthday}', '{$form->inn}', '{$form->street}', '{$form->house_number}', '{$form->flat}' , '{$password}',  '{$form->phone}', '{$form->email}', '{$form->passport_number}', '{$form->passport_serial}', '{$form->vidana}', '{$form->invite_id}', '{$form->webmoney}', '0', '{$country}', '{$form->card_type}', '{$form->card_invoice}', '{$form->card_nubmer}', '{$form->card_owner}', '{$form->card_bank}', '{$form->card_end_date}');  ";
-            $result = db1::query($sql);
+            $sql = "INSERT INTO `cosmos`.`waiting_for_permit` (`code`,`permit_email`,`subdomen`,`reg_date`, `city`, `index`, `surname`, `name`, `middle_name`, `birthday`, `inn`, `street`, `house`, `room`, `password`,  `telephone`, `email`, `number_passport`, `seria_passport`, `vidana`, `invite_id`, `webmoney`, `document_permit`, `country`, `card_type`, `card_invoice`, `card_number`, `card_owner`, `card_bank`, `card_end_date`) 
+                    VALUES ('{$code}', '0', '{$form->subdomen}', '{$date}', '{$form->city}', '{$form->index}', '{$form->lastname}', '{$form->firstname}', '{$form->middlename}', '{$form->birthday}', '{$form->inn}', '{$form->street}', '{$form->house_number}', '{$form->flat}' , '{$password}',  '{$form->phone}', '{$form->email}', '{$form->passport_number}', '{$form->passport_serial}', '{$form->vidana}', '{$form->invite_id}', '{$form->webmoney}', '0', '{$country}', '{$form->card_type}', '{$form->card_invoice}', '{$form->card_number}', '{$form->card_owner}', '{$form->card_bank}', '{$form->card_end_date}');  ";
+            //echo json_encode(array('status' => 'error', 'message' => $sql, 'target' => 'phone'));
+			//return true;
+			$result = db1::query($sql);
             $id = db1::lastInsertId();
 			$message="Пройдите по этой ссылке: http://{$form->subdomen}.cosmos.sc/reg/finish/?hash={$code} . Проигнорируйте это письмо, если это вас не касается и оно попало к вам случайно.";
 			$subject = 'Подтверждение почтового ящика';
