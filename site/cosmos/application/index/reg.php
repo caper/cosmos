@@ -45,8 +45,8 @@ class IndexReg_Controller extends Mikron_Controller {
     
     public function finish() {
     }
-	
-	public function finished() {
+
+    public function finished() {
         $this->disabledLayout();
         $this->disabledView();
         try {
@@ -92,26 +92,35 @@ class IndexReg_Controller extends Mikron_Controller {
 			case 1: $country ='Россия'; break;
 			case 2: $country ='Украина'; break;
 			}
+			//загрузка фотографий документов
+			
+			if(count($_FILES["form"]["name"]["file"])==4) {
+				//
+				//echo json_encode(array('status' => 'error', 'message' => '<pre>'.$a.'</pre>', 'target' => 'photo'));
+				//return true;
+				foreach($_FILES["form"]["name"]["file"] as $key=>$value) {				
+					if(is_uploaded_file($_FILES["form"]["tmp_name"]["file"][$key])) {
+					 //move_uploaded_file($_FILES["form"]["tmp_name"]["file"][$key], "/home/cosmos/data/www/cosmos/site/cosmos/public/uploads/document/".$key.$_POST['form']['subdomen'].".png");
+				   } else {
+					  echo json_encode(array('status' => 'error', 'message' => 'Файлы не загружены, попробуйте еще раз', 'target' => 'photo'));
+					return true;
+				   }
+				}
+			}
+			else {
+				echo json_encode(array('status' => 'error', 'message' => 'Пожалуйста, <br>загрузите все фотографии!', 'target' => 'photo'));
+				return true;
+			}
             $password = md5($this->salt.$form->password);
             // file_put_contents(dirname(__FILE__).'/123.txt', var_export($form, 1));
             $sql = "INSERT INTO `cosmos`.`waiting_for_permit` (`code`,`permit_email`,`subdomen`,`reg_date`, `city`, `index`, `surname`, `name`, `middle_name`, `birthday`, `inn`, `street`, `house`, `room`, `password`,  `telephone`, `email`, `number_passport`, `seria_passport`, `vidana`, `invite_id`, `webmoney`, `document_permit`, `country`, `card_type`, `card_invoice`, `card_number`, `card_owner`, `card_bank`, `card_end_date`) 
                     VALUES ('{$code}', '0', '{$form->subdomen}', '{$date}', '{$form->city}', '{$form->index}', '{$form->lastname}', '{$form->firstname}', '{$form->middlename}', '{$form->birthday}', '{$form->inn}', '{$form->street}', '{$form->house_number}', '{$form->flat}' , '{$password}',  '{$form->phone}', '{$form->email}', '{$form->passport_number}', '{$form->passport_serial}', '{$form->vidana}', '{$form->invite_id}', '{$form->webmoney}', '0', '{$country}', '{$form->card_type}', '{$form->card_invoice}', '{$form->card_number}', '{$form->card_owner}', '{$form->card_bank}', '{$form->card_end_date}');  ";
-            //echo json_encode(array('status' => 'error', 'message' => $sql, 'target' => 'phone'));
-			//return true;
-			$result = db1::query($sql);
+            $result = db1::query($sql);
             $id = db1::lastInsertId();
 			$message="Пройдите по этой ссылке: http://{$form->subdomen}.cosmos.sc/reg/finish/?hash={$code} . Проигнорируйте это письмо, если это вас не касается и оно попало к вам случайно.";
 			$subject = 'Подтверждение почтового ящика';
 			//mail($_POST['form']['email'], $subject, $message);
-			//загрузка фотографий документов
-			foreach($_FILES["form"]["name"]["file"] as $key=>$value) {				
-				if(is_uploaded_file($_FILES["form"]["tmp_name"]["file"][$key])) {
-				// move_uploaded_file($_FILES["form"]["tmp_name"]["file"][$key], "/home/cosmos/data/www/cosmos/site/cosmos/public/uploads/document/".$key.$_POST['form']['subdomen'].".png");
-			   } else {
-				  echo json_encode(array('status' => 'error', 'message' => 'Файлы не загружены', 'target' => 'phone'));
-				return true;
-			   }
-			}
+			
 	
             echo json_encode(array('status' => 'success', 'message' => 'Вы успешно зарегистрировались. Ожидайте подтверждения вашей регистрации рефералом', 'id' => $id));
             return true;

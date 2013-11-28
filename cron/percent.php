@@ -31,23 +31,24 @@
 		function line_result($sql,$line_number,$percent,$conn) {
 			global $count;
 			$line_percent=0;
-			if($line_number<7) {
+			if($line_number<15&&$sql!="end") {
 				$next_sql="select id,week_total from users where id=1000000";
 				//echo $sql.'<br>';
 				$result=mysql_query($sql,$conn);
-				
+				//echo "+";
 				while($user=mysql_fetch_assoc($result)) {
 					$count++; 
-					//echo $count.'<br>';
+					//echo $count." :";
 					$cur_percent=$user['week_total']*$percent[$line_number];
-					//print " {$line_number}: {$user['week_total']}*{$percent[$line_number]} = {$cur_percent} <br>";
+					//print " {$line_number}: {$user['week_total']}*{$percent[$line_number]} = {$cur_percent} \n";
 					$next_sql.=" OR invited = {$user['id']}";
 					$line_percent = $line_percent+$cur_percent;
 					}
+				if($line_percent==0) $next_sql="end";	
 				$next_line=$line_number+1;
 				return $line_percent+line_result($next_sql,$next_line,$percent,$conn);
 			}
-			echo '+';
+			//echo '+';
 			return $line_percent;			
 		}
 		

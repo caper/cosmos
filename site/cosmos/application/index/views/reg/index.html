@@ -34,24 +34,37 @@
                         $('#password-alert').html(data.message);
                         $('#password-alert').show();
                         $('#email-alert').hide();
+                        $('#photo-alert').hide();
 						$('#phone-alert').hide();
                         $('#login-alert').hide();
                     } else if(data.target == 'email') {
                         $('#email-alert').html(data.message);
                         $('#password-alert').hide();
                         $('#login-alert').hide();
+                        $('#photo-alert').hide();
                         $('#phone-alert').hide();
                         $('#email-alert').show();
                     } else if(data.target == 'phone') {
                         $('#phone-alert').html(data.message);
                         $('#password-alert').hide();
                         $('#login-alert').hide();
+                        $('#photo-alert').hide();
 						$('#email-alert').hide();
                         $('#phone-alert').show();
+                    }	else if(data.target == 'photo') {
+                        $('#photo-alert').html(data.message);
+                        $('#password-alert').hide();
+                        $('#login-alert').hide();
+                        $('#phone-alert').hide();
+						$('#email-alert').hide();
+                        $('#photo-alert').show();
+						hide_form();
+						return showSecondStep();
                     } else {
                         $('#login-alert').html(data.message);
                         $('#password-alert').hide();
                         $('#email-alert').hide();
+                        $('#photo-alert').hide();
 						$('#phone-alert').hide();
                         $('#login-alert').show();
                     }
@@ -1565,7 +1578,8 @@
                             <tr><th>Скан паспорта - прописка:</th><td><input type="file" name="form[file][passport2]" class="span4 form-control" /></td></tr>
                             <tr><th>Скан ИНН:</th><td><input type="file" name="form[file][inn]" class="span4 form-control" /></td></tr>
                             <tr><th>Скан кредитной карты:</th><td><input type="file" name="form[file][credit]" class="span4 form-control" /></td></tr>
-                            <tr><th></th><td><a class="btn btn-primary" href="#" onclick="$(this).closest('form').submit(); return false;">Отправить</a></td></tr>
+                            <tr><th></th><td><div id="photo-alert" style="display: none;" class="alert alert-danger"></div></td></tr>
+							<tr><th></th><td><a class="btn btn-primary" href="#" onclick="$(this).closest('form').submit(); return false;">Отправить</a></td></tr>
                         </table>
                     </td>
 					 <td style="vertical-align: top; padding-left: 4em;">
