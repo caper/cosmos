@@ -28,38 +28,47 @@
 			return $line_percent;			
 		}	*/
 		
-		function line_result($sql,$line_number,$percent) {
+		function line_result($sql,$line_number,$percent,$conn) {
 			global $count;
+			$count=0;
 			$line_percent=0;
-			if($line_number<7) {
+			if($line_number<15&&$sql!="end") {
 				$next_sql="select id,week_total from users where id=1000000";
 				//echo $sql.'<br>';
-				$result=db1::query($sql);
-				
+				$result=mysql_query($sql,$conn);
+				echo "+";
 				while($user=mysql_fetch_assoc($result)) {
 					$count++; 
-					//echo $count.'<br>';
+					//echo $count." :";
 					$cur_percent=$user['week_total']*$percent[$line_number];
-					//print " {$line_number}: {$user['week_total']}*{$percent[$line_number]} = {$cur_percent} <br>";
+					//print " {$line_number}: {$user['week_total']}*{$percent[$line_number]} = {$cur_percent} \n";
 					$next_sql.=" OR invited = {$user['id']}";
 					$line_percent = $line_percent+$cur_percent;
 					}
+				if($line_percent==0) $next_sql="end";	
 				$next_line=$line_number+1;
-				return $line_percent+line_result($next_sql,$next_line,$percent);
+				echo $line_number.':'.$count.'<br>';
+				return $line_percent+line_result($next_sql,$next_line,$percent,$conn);
 			}
-			echo '+';
+			//echo '+';
 			return $line_percent;			
 		}
 		
-		ini_set('max_execution_time', 999);
-		set_time_limit(0);
+		
+		$conn=mysql_connect("185.12.92.117","user","n6mBvRfk");
+		mysql_select_db("cosmos",$conn);
+
+		mysql_query('SET NAMES "utf8"', $conn);
+		
+		//ini_set('max_execution_time', 999);
+		//set_time_limit(0);
 		
 		$sql2=<<<here
 						SELECT id 
-		FROM  `users` LIMIT 20
+		FROM  `users` LIMIT 1
 here;
 					
-		$result2=db1::query($sql2);
+		$result2=mysql_query($sql2,$conn);
 			$percent= array(0,0.005,0.005,0.03,0.05,0.05,0.05,0.05,0.07,0.07,0.07,0.07,0.07,0.08,0.08,0.08);
 			//echo "<pre>"; print_r($percent); echo "</pre>";
 			
@@ -68,20 +77,20 @@ here;
 			global $count;
 			$count=0;
 			$sql="select id,week_total from users where invited={$row2['id']}";
-			$total=line_result($sql,1,$percent);
+			$total=line_result($sql,1,$percent,$conn);
 		//	echo $row['subdomen'].' result:'.$total;
 			echo $row2['id'].' result:'.$total;
-			echo ' count:'.$count.'<br>';
+			echo " count: {$count}<br>";
 					
-			/*
-			if($result_sv!=0)
+			
+			if($total!=0)
 			{
-				$sql=<<<here
-				UPDATE  `cosmos`.`users` SET  `total` =  `users`.`total`+'{$result_sv}' WHERE  `users`.`id` ={$row['id']};
+				$sql3=<<<here
+				UPDATE  `cosmos`.`users` SET  `total` =  `users`.`total`+'{$total}' WHERE  `users`.`id` ={$row2['id']};
 here;
-				echo $sql;
-				$result2=db1::query($sql);
-			}		*/		
+				//echo $sql;
+				//$result3=mysql_query($sql3,$conn);
+			}				
 			//echo "<br>";
 		}
 		/*

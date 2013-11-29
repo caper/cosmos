@@ -19,7 +19,7 @@ here;
 	$result=mysql_query($sql,$conn);
 	//echo $sql.'<br>';
 	$new_id=mysql_insert_id();
-	echo $new_id."\n";
+	echo $new_id."<br>";
 //прибавление cv наверх
 	$sql = "SELECT parent,side,type FROM  `users` WHERE  `id` ={$new_id}";
 	//echo $sql.'<br>';
@@ -66,8 +66,8 @@ here;
 function line($id_parent_array,$i,$conn)
 {
 	
-	//if($i<=510) {
-	if(count($id_parent_array)<=16100) {
+	//if($i<=15000) {
+	if(count($id_parent_array)<=9000) {
 		$id_array=$id_parent_array;
 		//echo "<pre>"; print_r($id_array); echo "</pre>";
 		unset($id_parent_array);
@@ -85,7 +85,7 @@ function line($id_parent_array,$i,$conn)
 
 				
 		}
-		
+		//echo  $i.'<br>';
 		line($id_parent_array,$i,$conn);
 	}
 

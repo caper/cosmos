@@ -1,10 +1,13 @@
-<?php  
+<?php 
 
 
-//if($_GET['pwd']=="n32-97dsnbmas-0;df488u5z?<mxncdsf9**&$@)")
+//if($_POST['pwd']=="n32-97dsnbmas-0;df488u5z?<mxncdsf9**&$@)")
 //{
 
-		
+		$conn=mysql_connect("185.12.92.117","user","n6mBvRfk");
+		mysql_select_db("cosmos",$conn);
+
+		mysql_query('SET NAMES "utf8"', $conn);
 
 				
 		$sql=<<<here
@@ -13,7 +16,7 @@ FROM  `users`
 
 here;
 
-		$result=db1::query($sql);
+		$result=mysql_query($sql,$conn);
 			
 		while($user=mysql_fetch_assoc($result))
 		{
@@ -82,8 +85,8 @@ here;
 				WHERE  `users`.`id` ={$user['id']};
 here;
 				//echo $sql;
-				$result2=db1::query($sql);
-			
+				$result2=mysql_query($sql,$conn);
+			echo $user['id']."<br>";
 		}
 //}
 
